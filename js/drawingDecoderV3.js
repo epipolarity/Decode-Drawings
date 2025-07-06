@@ -3,8 +3,8 @@ import { arrayToTextLines, map } from "./utils.js";
 // version 3 (latest) of the drawing decoder class
 // still naive but applies a bit more appropriate maths
 // takes into account basic radial lens distortion with a single k term
-// primarily works by estimating the distance to each ball and triangulating a camera position
-// considers position of each ball in the image to get a more accurate range estimation
+// works by estimating the distance to each ball and triangulating a camera position
+// considers ball's position within the frame to get a more accurate range estimation
 // calculates a z estimate to decide if pen is in contact with paper or not
 // applies smoothing based on last estimated xyz position
 // still assumes that camera position x and y are equivalent to pen tip x and y
