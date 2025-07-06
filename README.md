@@ -3,7 +3,7 @@
 <https://radufromfinland.com/decodeTheDrawings/>  
 <https://www.youtube.com/watch?v=bZ8uSzZv0ew>
 
-Radu recorded 6 videos with a camera mounted on top of a pen as he drew 6 different shapes/pictures, while the camera pointed at three coloured balls attached to a wall.
+Radu recorded 6 videos with a camera mounted on top of a pen as he drew 6 different shapes/pictures while the camera pointed at three coloured balls attached to a wall.
 
 The challenge was to track the balls in the video and use their relative positions and motion to decode what was being drawn as the camera moved with the pen.
 
