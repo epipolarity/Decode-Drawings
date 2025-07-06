@@ -11,8 +11,7 @@ The challenge was to track the balls in the video and use their relative positio
 
 You can find the XY image coordinate TXT files at `results/v3/`. Here are the decoded drawing images:
 
-<img src="results/v3/1.png" width="300" alt="circle" title="circle" /><img src="results/v3/2.png" width="300" alt="star" title="star" /><img src="results/v3/3.png" width="300" alt="house" title="house" />   
-<img src="results/v3/4.png" width="300" alt="question mark" title="question mark" /><img src="results/v3/5.png" width="300" alt="christmas tree" title="christmas tree" /><img src="results/v3/6.png" width="300" alt="goku" title="goku" />
+<img src="results/v3/1.png" width="250" alt="circle" title="circle" /><img src="results/v3/2.png" width="250" alt="star" title="star" /><img src="results/v3/3.png" width="250" alt="house" title="house" /><img src="results/v3/4.png" width="250" alt="question mark" title="question mark" /><img src="results/v3/5.png" width="250" alt="christmas tree" title="christmas tree" /><img src="results/v3/6.png" width="250" alt="goku" title="goku" />
 
 
 # My Solution
