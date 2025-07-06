@@ -3,9 +3,22 @@
 <https://radufromfinland.com/decodeTheDrawings/>  
 <https://www.youtube.com/watch?v=bZ8uSzZv0ew>
 
-Radu recorded 6 videos with a camera mounted on top of a pen as he drew 6 different shapes/pictures, while the camera pointing at a wall with three coloured balls attached.
+Radu recorded 6 videos with a camera mounted on top of a pen as he drew 6 different shapes/pictures, while the camera pointed at three coloured balls attached to a wall.
 
-The challenge was to track the balls in the video and use their relative position and motion to decode what was being drawn as the camera moved with the pen.
+The challenge was to track the balls in the video and use their relative positions and motion to decode what was being drawn as the camera moved with the pen.
+
+# My Results
+
+You can find the XY image coordinate TXT files at `results/v3/`. Here are the decoded drawing images:
+
+<img src="results/v3/1.png" width="300" alt="circle" title="circle" />
+<img src="results/v3/2.png" width="300" alt="star" title="star" />
+<img src="results/v3/3.png" width="300" alt="house" title="house" />
+
+<img src="results/v3/4.png" width="300" alt="question mark" title="question mark" />
+<img src="results/v3/5.png" width="300" alt="christmas tree" title="christmas tree" />
+<img src="results/v3/6.png" width="300" alt="goku" title="goku" />
+
 
 # My Solution
 
@@ -13,7 +26,7 @@ I broke the challenge down into three parts:
 
 ## 1. User Interface
 
-The user interface is handled by `index.html` and `./js/main.js`.  
+The user interface is handled by `index.html` and `js/main.js`.  
 <img src="images/userinterface.jpg" alt="User Interface" title="User Interface" width="600" />
 
 ### Decoder Version
@@ -22,7 +35,7 @@ The first row of controls lets you choose a drawing `Decoder Version`, but defau
 ### Input Source
 The second row lets you choose a `Video Input` to process. The videos are too large to upload here, but you can download them from Radu's site linked above.
 
-Processing the source videos is slow, so I added an option to export the detected ball data to a JS file which could be reused much more quickly. The `Data File Input` control lets you choose which of these to process, and these JS files are included in the `./data/` directory.
+Processing the source videos is slow, so I added an option to export the detected ball data to a JS file which could be reused much more quickly. The `Data File Input` control lets you choose which of these to process, and these JS files are included in the `data/` directory.
 
 ### Decoder Settings
 The third row of controls let you tweak some settings of the V3 drawing decoder. The settings are not applicable to V1 or V2 and will be disabled for those decoders. 
@@ -45,7 +58,7 @@ Below the controls is a 700x700 canvas where the Drawing Decoder will draw its i
 
 To the right of the drawing canvas are textarea controls with associated download buttons for saving the processing results.
 
-The first textarea generates javascript module code which can be stored in `./data/` for faster reprocessing. This module exports an array of ball positions and radii for each frame in the video. I have already included the corresponding files for the 6 provided videos.
+The first textarea generates javascript module code which can be stored in `data/` for faster reprocessing. This module exports an array of ball positions and radii for each frame in the video. I have already included the corresponding files for the 6 provided videos.
 
 The second textarea generates the XY image coordinates for the decoded drawing, and allows them to be downloaded as a TXT file for checking at the test page here: <https://radufromfinland.com/decodeTheDrawings/test/>
 
@@ -58,7 +71,7 @@ Right at the bottom is a canvas on which the input video is displayed, only if a
 
 The Ball Detection algorithm is based heavily on the Marker Detection algorithm described by Radu here: <https://www.youtube.com/watch?v=jy-Mxbt0zww>
 
-Full details are given within the code comments at `./js/ballDetector.js` but the basic idea is that for each pixel we determine how red, green or blue it is by subtracting from each channel the maximum of the other two channels. 
+Full details are given within the code comments at `js/ballDetector.js` but the basic idea is that for each pixel we determine how red, green or blue it is by subtracting from each channel the maximum of the other two channels. 
 
 So, if the blue channel is high and the other channels are low, the pixel gets a high 'blueness'. If red is high, but so is green, then even if blue is low the difference between green and red is low so it's 'redness' is also low.
 
@@ -72,7 +85,7 @@ I have included the three versions of the Drawing Decoder to show the progressio
 
 This is partly because they work really badly, partly because V1 is so trivial that it's kind of self explanatory, and partly because I'm not sure what I was thinking when i did V2. I have added as much detail as I can in the comments, but V2 remains a mystery, and probably not a mystery worth solving, except as a way to understand more about how my mind works.
 
-See `./js/drawingDecoderV1.js` and `./js/drawingDecoderV2.js`
+See `js/drawingDecoderV1.js` and `js/drawingDecoderV2.js`
 
 ### V3 Drawing Decoder
 
@@ -128,4 +141,6 @@ A lot of tweaking later, and trying different values with different drawings, an
 
 I can still tell that the distortion isn't completely removed, or that my method is still quite flawed, as there is still no perfect Z threshold that gets rid of all lines where the pen is off the paper without removing some where it's definitely still on the paper, but I know I made a lot of assumptions and simplifications to get to a 'good enough' result so I am not surprised by that, and pleasantly surpised that it works as well as it does!
 
-See `./js/drawingDecoderV3.js`
+See `js/drawingDecoderV3.js`
+
+<img src="results/v3/test results.png" width="600" alt="test results" title="test results" />
