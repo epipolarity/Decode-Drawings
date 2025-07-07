@@ -109,7 +109,8 @@ Each trendline still had a different coefficient though, relating to the differe
 
 So now the decoder could work out how far a ball is from the camera by first seeing how far it is from the center of the frame (in one dimension), using the quadratic formula to calculate a coefficient for another formula, and then using that formula along with the ball radius to work out how far away it is.
 
-Now I could tell how far away balls are, I could work out how far away two different balls are, and triangulate my position (the camera position) if i knew the distance between the balls. Radu gave us plenty of dimensions so I was able to plug in the distance between the balls and do some pythagoras-derived maths to work out my position in X and Y.
+Now I could tell how far away balls are, I could work out how far away two different balls are, and trilaterate my position (the camera position) if i knew the distance between the balls. Radu gave us plenty of dimensions so I was able to plug in the distance between the balls and do some pythagoras-derived maths to work out my position in X and Y.  
+<img src="images/trilateration.jpg" alt="Diagram showing trilateration steps" title="Diagram showing trilateration steps" width="800" />
 
 This improved the decoder quite a lot, and after sleeping on it I realised I had only half solved the problem as I was only looking at horizontal position on the sensor, and not vertical. At first I thought I would have to do a whole lot more CAD simulation and excel plotting to work out the vertical coeeficients, but luckily realised before i started that they would be exactly the same since the camera is 'hopefully' not using an anamorphic lens, so the geomtry should be the same both ways.
 

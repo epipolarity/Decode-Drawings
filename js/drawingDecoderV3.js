@@ -3,7 +3,7 @@ import { arrayToTextLines, map } from "./utils.js";
 // version 3 (latest) of the drawing decoder class
 // still naive but applies a bit more appropriate maths
 // takes into account basic radial lens distortion with a single k term
-// works by estimating the distance to each ball and triangulating a camera position
+// works by estimating the distance to each ball and trilaterating a camera position
 // considers ball's position within the frame to get a more accurate range estimation
 // calculates a z estimate to decide if pen is in contact with paper or not
 // applies smoothing based on last estimated xyz position
@@ -29,9 +29,9 @@ export default class DrawingDecoder {
         const greenRange = this.#getRange(undistortedBalls.green);
         const blueRange = this.#getRange(undistortedBalls.blue);
 
-        // triangulate camera position vertically and horizontally
-        const camPositionVertical = this.#triangulate(7.79, redRange, (blueRange + greenRange) / 2);    // 7.79cm is vertical 'baseline' of 9cm triangle
-        const camPositionHorizontal = this.#triangulate(9, blueRange, greenRange);                      // 9cm is horizontal 'baseline' of 9cm triangle
+        // trilaterate camera position vertically and horizontally
+        const camPositionVertical = this.#trilaterate(7.79, redRange, (blueRange + greenRange) / 2);    // 7.79cm is vertical 'baseline' of 9cm triangle
+        const camPositionHorizontal = this.#trilaterate(9, blueRange, greenRange);                      // 9cm is horizontal 'baseline' of 9cm triangle
 
         // map observed x and y values to canvas pixel range
         let x = map(camPositionHorizontal.x, -29, 16, 150, 550);
@@ -159,7 +159,7 @@ export default class DrawingDecoder {
     // there is probably a mathematical identity for this, but i worked it out from pythagoras
     // b and c are the distances from the camera to different balls based on result of this.#getRange()
     // a is the distance between the balls which is known
-    #triangulate(a, b, c) {
+    #trilaterate(a, b, c) {
         const x = (Math.pow(b, 2) - Math.pow(a, 2) - Math.pow(c, 2)) / (2 * a);
         const y = Math.sqrt(Math.pow(c, 2) - Math.pow(x, 2));
         return { x, y };
