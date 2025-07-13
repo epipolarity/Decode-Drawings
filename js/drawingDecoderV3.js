@@ -1,4 +1,5 @@
 import { arrayToTextLines, map } from "./utils.js";
+import { undistortPoint, undistortRadius } from "./undistort.js";
 
 // version 3 (latest) of the drawing decoder class
 // still naive but applies a bit more appropriate maths
@@ -84,48 +85,9 @@ export default class DrawingDecoder {
     // to undistort each ball have to undistort centroid and radius  using different methods
     #undistortBall(ball) {
         return {
-            centroid: this.#undistortPoint(ball.centroid),
-            radius: this.#undistortRadius(ball)
+            centroid: undistortPoint(ball.centroid, 1280, 720, this.k1),
+            radius: undistortRadius(ball.centroid, ball.radius, 1280, 720, this.k1)
         };
-    }
-
-
-    // if original ball size was calculated based on a distorted image then undistort a set of
-    // uniformly distributed points around its circumference and calculate the size of that instead
-    // possible overly convoluted
-    #undistortRadius(ball) {
-        const circPoints = [];
-        const count = 10;
-
-        for (let i = 0; i < count; i++) {                                   // calculate points on circumference of original 'distorted' ball
-            const angle = (i / count) * Math.PI * 2;
-            const x = ball.centroid.x + (ball.radius * Math.cos(angle));
-            const y = ball.centroid.y + (ball.radius * Math.sin(angle));
-            circPoints.push(this.#undistortPoint({ x, y }));                // undistort each point to create an 'undistorted' ball
-        }
-
-        let area = 0;                                                       // use shoelace formula: https://en.wikipedia.org/wiki/Shoelace_formula
-        for (let i = 0; i < count; i++) {                                   // to calculate area of new 'undistorted' polygon
-            const j = i === count - 1 ? 0 : i + 1;
-            area += ((circPoints[i].x * circPoints[j].y) - (circPoints[j].x * circPoints[i].y));
-        }
-        area = area / 2;
-
-        return Math.sqrt(area / Math.PI);                                   // calculate and return radius based on this 'undistorted' area
-    }
-
-
-    // transform any point in the original distorted image to a xy position in an ideal pinhole camera model
-    // using division model with single distortion term k1: https://en.wikipedia.org/wiki/Distortion_(optics)
-    // full distortion model uses multiple terms k1...kn and more for tangential and decentering distortion
-    // but more than 1 term would be hard to tune through trial and error, and 1 term gets us a lot of the way
-    #undistortPoint(point) {
-        const k1 = this.k1;                                                 // negative k1 = barrel distortion / positive k1 = pincushion
-        const center = { x: 640, y: 360 };                                  // hard coded video dimensions - sorry!
-        const r = Math.sqrt(Math.pow(point.x - center.x, 2) + Math.pow(point.y - center.y, 2));
-        const newX = center.x + ((point.x - center.x) / (1 + (k1 * Math.pow(r, 2))));
-        const newY = center.y + ((point.y - center.y) / (1 + (k1 * Math.pow(r, 2))));
-        return { x: newX, y: newY };
     }
 
 
