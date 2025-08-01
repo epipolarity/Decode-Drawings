@@ -1,5 +1,5 @@
 <mark>This competition submission has now been superseded by Version 5, available here:</mark>  
- https://github.com/epipolarity/Decode-Drawings-V5>
+ <https://github.com/epipolarity/Decode-Drawings-V5>
 
 
 
