@@ -1,3 +1,8 @@
+<mark>This competition submission has now been superseded by Version 5, available here:</mark>  
+ https://github.com/epipolarity/Decode-Drawings-V5>
+
+
+
 # Radu's 'Decode the Drawings' Coding Competition
 
 <https://radufromfinland.com/decodeTheDrawings/>  
